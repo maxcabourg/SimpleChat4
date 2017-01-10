@@ -4,6 +4,7 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,12 +64,13 @@ public class ClientGUI extends JFrame implements ChatIF, ActionListener
 			send = new JButton("Send message");
 			messages = new JPanel();
 			messages.setLayout(new BorderLayout());
-			messagesRecus = new JTextArea();
+			messagesRecus = new JTextArea(20, 50);
 			messagesRecus.setEditable(false);
 			messages.add(messagesRecus, BorderLayout.CENTER);
 			JScrollPane sp = new JScrollPane(messages);
 			
 			//messages.setEditable(false);
+			this.setMinimumSize(new Dimension());
 			this.setSize(1920, 1080);
 			send.addActionListener(this);
 			send.setActionCommand("send");
@@ -130,7 +132,10 @@ public class ClientGUI extends JFrame implements ChatIF, ActionListener
 	 */
 	public void display(String message) 
 	{
-		System.out.println("> " + message);
+		//System.out.println("> " + message);
+		if(message.equals("please login (hint: use the command #login your_name)")){
+			JOptionPane.showMessageDialog(null, message, "Erreur login", JOptionPane.ERROR_MESSAGE);
+		}
 		messagesRecus.setText(messagesRecus.getText()+"\n"+message);
 	}
 
