@@ -136,7 +136,14 @@ public class ClientGUI extends JFrame implements ChatIF, ActionListener
 		if(message.equals("please login (hint: use the command #login your_name)")){
 			JOptionPane.showMessageDialog(null, message, "Erreur login", JOptionPane.ERROR_MESSAGE);
 		}
-		messagesRecus.setText(messagesRecus.getText()+"\n"+message);
+		else if(message.matches("Port = [0-9]{4}")){
+			JOptionPane.showMessageDialog(null, message, "Port", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else if(message.matches("Host = [A-z]+")){
+			JOptionPane.showMessageDialog(null, message, "Host", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else
+			messagesRecus.setText(messagesRecus.getText()+"\n"+message);
 	}
 
 
@@ -172,8 +179,10 @@ public class ClientGUI extends JFrame implements ChatIF, ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("send")){
-			client.handleMessageFromClientUI(userInput.getText());
-			userInput.setText("");
+			if(!userInput.getText().equals("")){
+				client.handleMessageFromClientUI(userInput.getText());
+				userInput.setText("");
+			}
 		}
 		
 	}
